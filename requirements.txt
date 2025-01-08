@@ -7,3 +7,4 @@ tensorflow
 pennylane
 qiskit
 dataset
+notebook
