@@ -6,3 +6,4 @@ scikit-learn
 tensorflow
 pennylane
 qiskit
+dataset
