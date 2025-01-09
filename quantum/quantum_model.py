@@ -1,15 +1,15 @@
 import pennylane as qml
 from pennylane import numpy as np
-from sklearn.metrics import accuracy_score
 
 class QuantumModel:
-    def __init__(self, n_qubits, n_layers, backend="default.qubit"):
+    def __init__(self, n_qubits, n_layers, backend="default.qubit", lr=0.1):
         self.n_qubits = n_qubits
         self.n_layers = n_layers
+        self.lr = lr
         self.device = qml.device(backend, wires=n_qubits)
-        self.qnode = qml.QNode(self.circuit, self.device, interface=None)
+        self.qnode = qml.QNode(self.circuit, self.device, interface="autograd")
         self.weights = None
-        self.opt = None
+        self.opt = qml.AdamOptimizer(stepsize=lr)
 
     def circuit(self, features, weights):
         for i in range(self.n_qubits):
@@ -29,9 +29,10 @@ class QuantumModel:
         loss = np.mean((preds - y) ** 2)
         return loss
 
-    def fit(self, X, y, steps=100, lr=0.1):
+    def fit(self, X, y, steps=100, lr=None):
+        if lr:
+            self.opt = qml.AdamOptimizer(stepsize=lr)
         self.weights = self.initialize_weights()
-        self.opt = qml.GradientDescentOptimizer(stepsize=lr)
         for step in range(steps):
             self.weights = self.opt.step(lambda w: self.cost(w, X, y), self.weights)
             if step % 10 == 0 or step == steps - 1:
