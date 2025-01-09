@@ -8,3 +8,4 @@ pennylane
 qiskit
 dataset
 notebook
+torch
