@@ -46,9 +46,8 @@ class QuantumModel:
             start = time.time()
             self.weights = self.opt.step(lambda w: self.cost(w, X, y), self.weights)
             step_time = time.time() - start
-            if step % 10 == 0 or step == steps - 1:
-                print(
-                    f"Step {step + 1}/{steps}, Loss: {self.cost(self.weights, X, y):.4f}, Step Time: {step_time:.4f} seconds")
+            if step % 5 == 0 or step == steps - 1:
+                print(f"Step {step + 1}/{steps}, Loss: {self.cost(self.weights, X, y):.4f}")
 
     def predict(self, X):
         preds = []
