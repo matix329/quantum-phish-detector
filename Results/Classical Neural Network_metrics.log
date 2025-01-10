@@ -1,0 +1,13 @@
+Training time: 2.5111s
+Evaluation time: 0.0005s
+Accuracy: 0.9347
+Precision: 0.9473
+Recall: 0.9230
+F1_score: 0.9350
+--------------------------------------------------
+Neural Network Architecture:
+Input Size: 15
+Hidden Size: 64
+Output Size: 2
+Learning Rate: 0.001
+Epochs: 50

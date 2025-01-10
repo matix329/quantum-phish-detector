@@ -1,0 +1,12 @@
+Training time: 4633.9231s
+Evaluation time: 5.0578s
+Accuracy: 0.4067
+Precision: 0.4406
+Recall: 0.6187
+F1_score: 0.5147
+--------------------------------------------------
+Quantum Model Architecture:
+Number of Qubits: 7
+Number of Layers: 2
+Quantum Gates: RX, RZ, CZ
+Learning Rate: 0.001
