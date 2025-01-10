@@ -1,8 +1,9 @@
 import pennylane as qml
 from pennylane import numpy as np
+import time
 
 class QuantumModel:
-    def __init__(self, n_qubits, n_layers, backend="default.qubit", lr=0.1):
+    def __init__(self, n_qubits, n_layers, backend="default.qubit", lr=0.001):
         self.n_qubits = n_qubits
         self.n_layers = n_layers
         self.lr = lr
@@ -10,6 +11,14 @@ class QuantumModel:
         self.qnode = qml.QNode(self.circuit, self.device, interface="autograd")
         self.weights = None
         self.opt = qml.AdamOptimizer(stepsize=lr)
+
+    def print_architecture(self):
+        print("Quantum Model Architecture:")
+        print(f"Number of Qubits: {self.n_qubits}")
+        print(f"Number of Layers: {self.n_layers}")
+        print("Quantum Gates: RX, RZ, CZ")
+        print(f"Learning Rate: {self.lr}")
+        print(f"Backend: {self.device.name}")
 
     def circuit(self, features, weights):
         for i in range(self.n_qubits):
@@ -34,9 +43,12 @@ class QuantumModel:
             self.opt = qml.AdamOptimizer(stepsize=lr)
         self.weights = self.initialize_weights()
         for step in range(steps):
+            start = time.time()
             self.weights = self.opt.step(lambda w: self.cost(w, X, y), self.weights)
+            step_time = time.time() - start
             if step % 10 == 0 or step == steps - 1:
-                print(f"Step {step + 1}/{steps}, Loss: {self.cost(self.weights, X, y):.4f}")
+                print(
+                    f"Step {step + 1}/{steps}, Loss: {self.cost(self.weights, X, y):.4f}, Step Time: {step_time:.4f} seconds")
 
     def predict(self, X):
         preds = []

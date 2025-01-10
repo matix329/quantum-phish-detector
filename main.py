@@ -36,7 +36,6 @@ def main():
     preprocessor = DataPreprocessor("Database/datasets/train.csv", label_column="status", drop_columns=["url"])
     preprocessor.load_data()
     preprocessor.normalize_features()
-
     preprocessor.reduce_features(n_components=15)
     features, labels = preprocessor.get_processed_data()
 
@@ -47,10 +46,14 @@ def main():
     print("Splitting data into train and test sets...")
     X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
 
+    # Neural Network
     nn_model = NeuralNetworkModel(input_size=X_train.shape[1], hidden_size=64, output_size=2, learning_rate=0.001)
+    nn_model.print_architecture()
     train_and_evaluate_model(nn_model, X_train, y_train, X_test, y_test, "Classical Neural Network")
 
-    quantum_model = QuantumModel(n_qubits=5, n_layers=2, lr=0.001)
+    # Quantum Model
+    quantum_model = QuantumModel(n_qubits=5, n_layers=2)
+    quantum_model.print_architecture()
     train_and_evaluate_model(quantum_model, X_train, y_train, X_test, y_test, "Quantum Model", steps=30)
 
 if __name__ == "__main__":

@@ -17,6 +17,13 @@ class NeuralNetworkModel:
         self.criterion = nn.CrossEntropyLoss()
         self.optimizer = optim.Adam(self.model.parameters(), lr=learning_rate)
 
+    def print_architecture(self):
+        print("Neural Network Architecture:")
+        print(f"Input Size: {self.model[0].in_features}")
+        print(f"Hidden Size: {self.model[0].out_features}")
+        print(f"Output Size: {self.model[-2].out_features}")
+        print(f"Learning Rate: {self.optimizer.param_groups[0]['lr']}")
+
     def fit(self, X_train, y_train, epochs=100, batch_size=32):
         X_train = torch.tensor(X_train, dtype=torch.float32)
         y_train = torch.tensor(y_train.values if isinstance(y_train, pd.Series) else y_train, dtype=torch.long)
