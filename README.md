@@ -4,17 +4,19 @@ A quantum machine learning project leveraging VQC algorithms for phishing URL de
 ---
 
 ## Features
-- Dataset: Phishing URL detection dataset ([source](https://huggingface.co/datasets/pirocheto/phishing-url))
 - Implements a classical neural network and a quantum variational circuit model.
 - Generates visualizations for performance comparison.
 
----
+## Dataset
+Phishing URL detection dataset ([source](https://huggingface.co/datasets/pirocheto/phishing-url))
+
+Hannousse, A., & Yahiouche, S. (2021). 
+Towards benchmark datasets for machine learning based website phishing detection: An experimental study. 
+Engineering Applications of Artificial Intelligence, 104, 104347.
 
 ## Requirements
 - Python 3.9+
 - pip
-
----
 
 ## Installation and running
 
@@ -54,7 +56,6 @@ A quantum machine learning project leveraging VQC algorithms for phishing URL de
      - Metrics comparison: `NN_vs_QM_metrics_comparison.png`
      - PCA Visualization: `QuantumModel_pca_visualization.png`
 
----
 ## Results
 - Sample experiment results, including model metrics, loss curve visualizations, and metrics comparisons, are located in the [Results folder](https://github.com/matix329/quantum-phish-detector/tree/main/Results).
 - Open the files in this folder to view the outputs in `.png` format or read models metrics in logs.
