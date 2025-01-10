@@ -11,6 +11,7 @@ class QuantumModel:
         self.qnode = qml.QNode(self.circuit, self.device, interface="autograd")
         self.weights = None
         self.opt = qml.AdamOptimizer(stepsize=lr)
+        self.losses = []
 
     def print_architecture(self):
         print("Quantum Model Architecture:")
@@ -43,11 +44,11 @@ class QuantumModel:
             self.opt = qml.AdamOptimizer(stepsize=lr)
         self.weights = self.initialize_weights()
         for step in range(steps):
-            start = time.time()
             self.weights = self.opt.step(lambda w: self.cost(w, X, y), self.weights)
-            step_time = time.time() - start
+            current_loss = self.cost(self.weights, X, y)
+            self.losses.append(current_loss)
             if step % 5 == 0 or step == steps - 1:
-                print(f"Step {step + 1}/{steps}, Loss: {self.cost(self.weights, X, y):.4f}")
+                print(f"Step {step + 1}/{steps}, Loss: {current_loss:.4f}")
 
     def predict(self, X):
         preds = []
